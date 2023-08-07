@@ -4,7 +4,7 @@ namespace asp_dotnet_getstarted.Models
 {
     public class Product
     {
-        public string id { get; set; }
+        public string Id { get; set; }
         public string Maker { get; set; }
 
         [JsonPropertyName("img")]

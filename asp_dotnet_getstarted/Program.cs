@@ -1,4 +1,7 @@
+using asp_dotnet_getstarted.Models;
 using asp_dotnet_getstarted.Services;
+using Microsoft.AspNetCore.Builder;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,5 +30,21 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.UseEndpoints(enpoints =>
+{
+    enpoints.MapGet("/products", (context) =>
+    {
+        IEnumerable<Product>? products = app.Services.GetService<JsonProductService>()?.GetProducts();
+
+        string productsJsonAsString = JsonSerializer.Serialize<IEnumerable<Product>>(products!, new JsonSerializerOptions()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
+
+        return context.Response.WriteAsync(productsJsonAsString);
+
+    });
+});
 
 app.Run();

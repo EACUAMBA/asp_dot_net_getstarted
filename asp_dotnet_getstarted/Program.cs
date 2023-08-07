@@ -1,7 +1,13 @@
+using asp_dotnet_getstarted.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+
+//Teaching .NET that this new service can be injected in classes that need one.
+builder.Services.AddTransient<JsonProductService>();
 
 var app = builder.Build();
 

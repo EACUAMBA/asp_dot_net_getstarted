@@ -18,9 +18,16 @@ namespace asp_dotnet_getstarted.Services
                 this._webHostEnvironment.WebRootPath,
                 "data",
                 "products.json"
-                );
+                ).Normalize();
 
-            IEnumerable<Product>? products = JsonSerializer.Deserialize<IEnumerable<Product>>(productsJsonDataFilePath);
+            string jsonDataAsString = File.ReadAllText(productsJsonDataFilePath);
+
+            IEnumerable<Product>? products = JsonSerializer.Deserialize<IEnumerable<Product>>(jsonDataAsString, 
+                new JsonSerializerOptions()
+                {
+                    PropertyNameCaseInsensitive = true
+                }
+                );
 
             if (null == products)
             {

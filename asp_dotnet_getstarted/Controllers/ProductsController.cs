@@ -21,5 +21,13 @@ namespace asp_dotnet_getstarted.Controllers
         {
             return this.productService.GetProducts();
         }
+
+        [Route("rate")]
+        [HttpGet]
+        public ActionResult Get([FromQuery(Name ="product-id")]string ProductId, [FromQuery(Name = "rating")] int Rating)
+        {
+            this.productService.AddRating(ProductId, Rating);
+            return Ok();
+        }
     }
 }

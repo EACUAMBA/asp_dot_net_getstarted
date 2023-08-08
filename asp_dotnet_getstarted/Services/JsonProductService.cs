@@ -6,6 +6,7 @@ namespace asp_dotnet_getstarted.Services
     public class JsonProductService
     {
         public IWebHostEnvironment _webHostEnvironment { get; private set; }
+        public string ProductsJsonDataFilePath { get; private set; }
 
         public JsonProductService(IWebHostEnvironment webHostEnvironment)
         {
@@ -14,13 +15,13 @@ namespace asp_dotnet_getstarted.Services
 
         public IEnumerable<Product> GetProducts()
         {
-            string productsJsonDataFilePath = Path.Combine(
+             ProductsJsonDataFilePath = Path.Combine(
                 this._webHostEnvironment.WebRootPath,
                 "data",
                 "products.json"
                 ).Normalize();
 
-            string jsonDataAsString = File.ReadAllText(productsJsonDataFilePath);
+            string jsonDataAsString = File.ReadAllText(ProductsJsonDataFilePath);
 
             IEnumerable<Product>? products = JsonSerializer.Deserialize<IEnumerable<Product>>(jsonDataAsString, 
                 new JsonSerializerOptions()
@@ -37,6 +38,43 @@ namespace asp_dotnet_getstarted.Services
             {
                 return products;
             }
+        }
+
+        public void AddRating(string productId, int rating)
+        {
+            IEnumerable<Product> products = GetProducts();
+            Product product = products.First(p => p.Id == productId);
+
+            if(product != null)
+            {
+                int[] ratings = product.Ratings;
+
+                if(ratings == null)
+                {
+                    int[] newRatings = new int[] { rating };
+                    product.Ratings = newRatings;
+                }
+                else
+                {
+                    List<int> ratingsList = product.Ratings.ToList();
+                    ratingsList.Add(rating);
+                    product.Ratings = ratingsList.ToArray();
+                }
+
+            }
+
+            using (var outputStream = File.OpenWrite(ProductsJsonDataFilePath))
+            {
+                JsonSerializer.Serialize<IEnumerable<Product>>(
+                    new Utf8JsonWriter(outputStream, new JsonWriterOptions
+                    {
+                        SkipValidation = true,
+                        Indented = true
+                    }),
+                    products
+                    );
+            }
+
         }
     }
 }

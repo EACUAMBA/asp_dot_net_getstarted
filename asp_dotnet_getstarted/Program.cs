@@ -12,6 +12,8 @@ builder.Services.AddRazorPages();
 //Teaching .NET that this new service can be injected in classes that need one.
 builder.Services.AddTransient<JsonProductService>();
 
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,18 +35,19 @@ app.MapRazorPages();
 
 app.UseEndpoints(enpoints =>
 {
-    enpoints.MapGet("/products", (context) =>
-    {
-        IEnumerable<Product>? products = app.Services.GetService<JsonProductService>()?.GetProducts();
+    enpoints.MapControllers();
+    //enpoints.MapGet("/products", (context) =>
+    //{
+    //    IEnumerable<Product>? products = app.Services.GetService<JsonProductService>()?.GetProducts();
 
-        string productsJsonAsString = JsonSerializer.Serialize<IEnumerable<Product>>(products!, new JsonSerializerOptions()
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        });
+    //    string productsJsonAsString = JsonSerializer.Serialize<IEnumerable<Product>>(products!, new JsonSerializerOptions()
+    //    {
+    //        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+    //    });
 
-        return context.Response.WriteAsync(productsJsonAsString);
+    //    return context.Response.WriteAsync(productsJsonAsString);
 
-    });
+    //});
 });
 
 app.Run();

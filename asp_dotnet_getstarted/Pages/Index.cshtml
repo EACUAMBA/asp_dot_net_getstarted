@@ -1,4 +1,5 @@
 ﻿@page
+@using asp_dotnet_getstarted.Components
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -9,16 +10,8 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-    <div class="row card-columns" style="column-gap: 0.5rem; row-gap: .5rem">
-    @foreach (var product in Model.Products)
-    {
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="@product.Image" alt="@product.Title">
-            <div class="card-body">
-                <h5 class="card-title">@product.Title</h5>
-                <p class="card-text">@product.Description</p>
-                <a href="/products/@product.Id" class="btn btn-primary">Ver bem</a>
-            </div>
-        </div>
-    }
-</div>
+
+@(await Html.RenderComponentAsync<ProductListComponent>(RenderMode.ServerPrerendered))
+
+
+<script src="_framework/blazor.server.js"></script>

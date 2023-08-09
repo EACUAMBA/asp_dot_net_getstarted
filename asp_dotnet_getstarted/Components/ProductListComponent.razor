@@ -4,6 +4,13 @@
 
 @inject JsonProductService productService;
 
+@code {
+    int votesCount = 0;
+    int votesAvg = 0;
+    int votesSum = 0;
+    string votesLabel = "";
+}
+
 <div class="container">
     <div class="row row-cols-4 g-2">
         @foreach (var product in productService.GetProducts())
@@ -53,6 +60,27 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+
+                    @if(votesAvg <= 0)
+                    {
+                        <span>Seja o primeiro a avaliar ente produto <i class="bi bi-arrow-right"></i></span>
+                    }else{
+                        <span>@votesCount @votesLabel</span>
+                    }
+
+                     @for(int star = 1; star <= 6; star++)
+                        {
+
+                        var CurrentStar = star;
+                        @if(star <= votesAvg)
+                            {
+                                <i class="bi bi-star-fill" @onclick="(e => RateProduct(selectedProduct, CurrentStar))"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-star" @onclick="(e => RateProduct(selectedProduct, CurrentStar))"></i>
+                            }
+                        }
                 </div>
             </div>
         </div>
@@ -67,5 +95,29 @@
     {
         selectedProductid = ProductId;
         selectedProduct = productService.GetProducts().First(p => p.Id.Equals(selectedProductid));
+        GetCurrentRatings(selectedProduct);
+    }
+
+    void GetCurrentRatings(Product product)
+    {
+        if(product.Ratings == null)
+        {
+            votesAvg = 0;
+        }
+        else
+        {
+            votesCount = product.Ratings.Count();
+            votesSum = product.Ratings.Sum();
+            votesAvg = product.Ratings.Sum() / product.Ratings.Count();
+
+            votesLabel = (votesAvg <= 1) ? "Availiação" : "Avaliações";
+        }
+    }
+
+    void RateProduct(Product product, int starNumber)
+    {
+        System.Console.WriteLine($"Você votou em {product.Title} e o valor do voto foi {starNumber}");
+        productService.AddRating(product.Id, starNumber);
+        SelectProduct(product.Id);
     }
 }

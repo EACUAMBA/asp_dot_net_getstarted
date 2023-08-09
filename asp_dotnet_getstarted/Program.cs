@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
 
 
 //Teaching .NET that this new service can be injected in classes that need one.
@@ -32,10 +33,11 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapBlazorHub();
+app.MapControllers();
 
 app.UseEndpoints(enpoints =>
 {
-    enpoints.MapControllers();
     //enpoints.MapGet("/products", (context) =>
     //{
     //    IEnumerable<Product>? products = app.Services.GetService<JsonProductService>()?.GetProducts();

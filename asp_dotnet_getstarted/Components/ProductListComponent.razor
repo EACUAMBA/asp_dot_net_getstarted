@@ -1,0 +1,39 @@
+﻿@using asp_dotnet_getstarted.Services
+@using asp_dotnet_getstarted.Models
+
+@inject JsonProductService productService;
+
+<div class="row row-cols-4 g-2">
+    @foreach (var product in productService.GetProducts())
+{
+    <div class="card col" style="width: 18rem;">
+        <img class="card-img-top" src="@product.Image" alt="@product.Title">
+        <div class="card-body">
+            <h5 class="card-title">@product.Title</h5>
+            <p class="card-text">@product.Description</p>
+            <a href="/products/@product.Id" class="btn btn-primary">Ver bem</a>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">
+                <button onclick="(event => SelectProduct(@product.Id))"
+                    data-toggle="modal"
+                    data-target="#productModal"
+                    class="btn btn-primary">
+                    Ver mais
+                </button>
+            </small>
+        </div>
+    </div>
+}
+</div>
+
+@code {
+    Product selectedProduct;
+    string selectedProductid;
+
+    void SelectProduct(string ProductId)
+    {
+        selectedProductid = selectedProductid;
+        selectedProduct = productService.GetProducts().First(p => p.Id.Equals(selectedProductid));
+    }
+}

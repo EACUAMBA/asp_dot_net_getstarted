@@ -10,7 +10,9 @@
       4,
       4,
       4,
-      500
+      3,
+      4,
+      4
     ]
   },
   {
@@ -29,7 +31,8 @@
     "Url": "https://www.hackster.io/agent-hawking-1/bling-your-laptop-with-an-internet-connected-light-show-30e4db",
     "Title": "Bling your Laptop with an Internet-Connected Light Show",
     "Description": "Create a web-connected light-strip API controllable from your website, using the Particle.io.",
-    "Ratings": null
+    "Ratings": [
+    ]
   },
   {
     "Id": "jenlooper-survival",

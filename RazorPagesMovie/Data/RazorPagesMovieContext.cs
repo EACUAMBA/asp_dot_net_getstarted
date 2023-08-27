@@ -15,5 +15,6 @@ namespace RazorPagesMovie.Data
         }
 
         public DbSet<RazorPagesMovies.Models.Movie> Movie { get; set; } = default!;
+        //In Entity Framework terminology, an entity set typically corresponds to a database table. An entity corresponds to a row in the table.
     }
 }

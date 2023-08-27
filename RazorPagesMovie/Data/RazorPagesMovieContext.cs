@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using RazorPagesMovies.Models;
+using RazorPagesMovie.Models;
 
 namespace RazorPagesMovie.Data
 {
@@ -14,7 +14,7 @@ namespace RazorPagesMovie.Data
         {
         }
 
-        public DbSet<RazorPagesMovies.Models.Movie> Movie { get; set; } = default!;
+        public DbSet<RazorPagesMovie.Models.Movie> Movie { get; set; } = default!;
         //In Entity Framework terminology, an entity set typically corresponds to a database table. An entity corresponds to a row in the table.
     }
 }

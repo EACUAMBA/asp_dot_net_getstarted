@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RazorPagesMovie.Data;
-using RazorPagesMovies.Models;
+using RazorPagesMovie.Models;
 
 namespace RazorPagesMovie.Pages_Movies
 {
@@ -19,6 +19,7 @@ namespace RazorPagesMovie.Pages_Movies
             _context = context;
         }
 
+//The Page method creates a PageResult object that renders the Create.cshtml page.
         public IActionResult OnGet()
         {
             return Page();

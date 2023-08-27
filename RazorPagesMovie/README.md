@@ -62,3 +62,6 @@ dotnet ef migrations add InitialCreate
 dotnet ef database update
 #The update command runs the Up method in migrations that have not been applied. In this case, update runs the Up method in the Migrations/<time-stamp>_InitialCreate.cs file, which creates the database.
 ```
+
+The @page directive
+The @page Razor directive makes the file an MVC action, which means that it can handle requests. @page must be the first Razor directive on a page. @page and @model are examples of transitioning into Razor-specific markup. See Razor syntax for more information.

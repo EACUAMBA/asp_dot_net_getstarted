@@ -37,3 +37,18 @@ Design time tools for EF Core
 The EF Core SQLite provider, which installs the EF Core package as a dependency.
 Packages needed for scaffolding: Microsoft.VisualStudio.Web.CodeGeneration.Design and Microsoft.EntityFrameworkCore.SqlServer.
 
+```bash
+dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovie.Data.RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries --databaseProvider sqlite
+```
+The following table details the ASP.NET Core code generator options.
+
+Option	Description
+-m	The name of the model.
+-dc	The DbContext class to use including namespace.
+-udl	Use the default layout.
+-outDir	The relative output folder path to create the views.
+--referenceScriptLibraries	Adds _ValidationScriptsPartial to Edit and Create pages
+
+```bash
+dotnet aspnet-codegenerator razorpage -h
+```
